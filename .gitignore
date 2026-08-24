@@ -3,6 +3,6 @@ node_modules
 out
 .env*.local
 .DS_Store
-supabase-fix-grants.sql
+
 supabase-schema.sql
-.sql
+supabase-fix-grants.sql
