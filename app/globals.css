@@ -1,0 +1,39 @@
+:root {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  ::selection { background: #D8E6E0; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5
+           text-[15px] font-medium transition-all duration-150 select-none
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-keep/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
+  }
+  .btn-primary { @apply btn bg-keep text-white hover:bg-keepdeep active:scale-[0.99]; }
+  .btn-quiet   { @apply btn bg-transparent text-ink border border-line hover:border-ink/30 hover:bg-white/60; }
+  .btn-ghost   { @apply btn bg-transparent text-muted hover:text-ink px-3 py-2; }
+  .card        { @apply bg-surface border border-line rounded-2xl shadow-card; }
+  .label       { @apply text-[13px] font-medium tracking-[0.02em] text-muted uppercase; }
+}
+
+@media print {
+  @page { margin: 16mm; }
+  body { background: #fff; }
+  .card { box-shadow: none !important; break-inside: avoid; }
+  .btn, .btn-primary, .btn-quiet, .btn-ghost { display: none !important; }
+  a[href]::after { content: ""; }
+  header, section, article { break-inside: avoid; }
+}
