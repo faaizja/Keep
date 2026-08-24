@@ -1,5 +1,5 @@
 -- ---------------------------------------------------------------------
--- Keep — database schema
+-- Keep: database schema
 --
 -- Two tables. Neither holds a name, an email, an age, a school, or any
 -- readable content. `blob` is AES-GCM ciphertext produced in the
@@ -25,6 +25,18 @@ create table if not exists public.shares (
   received_at  timestamptz,
   created_at   timestamptz not null default now()
 );
+
+-- Table-level privileges. Row-level security decides *which rows* a role
+-- may touch; it cannot grant access to a table the role has no privilege
+-- on at all. Tables created through the SQL editor do not always inherit
+-- the default grants, which surfaces as "permission denied for table".
+grant usage on schema public to anon, authenticated;
+grant select, insert, update on table public.records to anon, authenticated;
+grant select, insert, update on table public.shares  to anon, authenticated;
+
+-- Delete is withheld on purpose. Nothing in Keep ever deletes a row:
+-- revoking a share empties it in place, so there is no call anyone can
+-- make that destroys another person's record.
 
 alter table public.records enable row level security;
 alter table public.shares  enable row level security;

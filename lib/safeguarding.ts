@@ -13,7 +13,7 @@ import type { Incident } from "./types";
  * This is deliberately a simple, inspectable phrase check rather than a
  * model: it runs entirely offline, nothing is sent anywhere to be
  * classified, and anyone can read exactly what it looks for. Its limits
- * are stated plainly in the submission — it will miss indirect wording,
+ * are stated plainly in the submission. It will miss indirect wording,
  * and it will sometimes interrupt when it did not need to. It is a
  * prompt to offer help, never a diagnosis and never a trigger for
  * action taken without the child.
@@ -74,12 +74,12 @@ const PHRASES: Record<Concern, RegExp[]> = {
 
 const HEADLINES: Record<Concern, { headline: string; body: string }> = {
   "self-harm": {
-    headline: "Before you save this — you shouldn't be carrying this on your own.",
+    headline: "Before you save this. You shouldn't be carrying this on your own.",
     body: "What you've written sounds like it's been really heavy. Recording it is worth doing, and it isn't enough on its own. There are people whose whole job is to talk to someone your age about exactly this, and they're free and available right now.",
   },
   violence: {
     headline: "This one sounds like more than bullying.",
-    body: "Threats and violence are treated differently from everything else in here, and they shouldn't wait for a pattern to build up. This still belongs in your record — but it's worth telling someone today as well.",
+    body: "Threats and violence are treated differently from everything else in here, and they shouldn't wait for a pattern to build up. This still belongs in your record, but it's worth telling someone today as well.",
   },
   sexual: {
     headline: "This is a serious thing, and there's specific help for it.",

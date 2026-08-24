@@ -31,7 +31,7 @@ export type Incident = {
   createdAt: string;
   types: IncidentTypeId[];
   place: PlaceId;
-  /** free text, optional — the child's own words */
+  /** free text, optional. The child's own words. */
   note?: string;
   /** first names / initials the child chose to record, optional */
   people?: string[];
@@ -43,7 +43,7 @@ export type Incident = {
 
 export type EvidenceImage = {
   id: string;
-  /** redacted image, base64 data URL — the original is never stored */
+  /** redacted image, base64 data URL. The original is never stored. */
   dataUrl: string;
   width: number;
   height: number;

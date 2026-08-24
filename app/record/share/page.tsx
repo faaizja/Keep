@@ -126,12 +126,12 @@ export default function SharePage() {
       <div className="pt-6">
         <p className="label">Hand it over</p>
         <h1 className="mt-2 font-display text-[2rem] leading-tight tracking-[-0.02em]">
-          You decide what they see, and who they are.
+          You decide what they see, and who you are.
         </h1>
         <p className="mt-3 text-[15.5px] leading-[1.7] text-muted">
           This makes one link. Whoever opens it sees the entries you pick, laid out
-          properly, with the school&apos;s duty stated at the top. You can switch the
-          link off at any time — even after you&apos;ve sent it.
+          clearly, with the school&apos;s duty at the top. You can switch the link off at
+          any time, even after you&apos;ve sent it.
         </p>
       </div>
 
@@ -239,7 +239,7 @@ export default function SharePage() {
           disabled={busy || chosen.length === 0}
           className="btn-primary w-full disabled:opacity-40"
         >
-          {busy ? "Locking it…" : `Make the link — ${chosen.length} entries`}
+          {busy ? "Locking it…" : `Make the link for ${chosen.length} entries`}
         </button>
         {err && <p className="mt-3 text-[14px] text-signal">{err}</p>}
 
@@ -271,9 +271,9 @@ export default function SharePage() {
             </div>
             <p className="mt-4 text-[13px] leading-[1.65] text-muted">
               The part after the <span className="font-mono">#</span> is the key that
-              unlocks it. Browsers never send that part to a server, so we hold a bundle
-              we genuinely cannot open. Send the whole link, and only to the person you
-              mean to.
+              unlocks it. Browsers never send that part to a server, so what we hold is a
+              bundle we can&apos;t open. Send the whole link, and only to the person you
+              meant it for.
             </p>
           </div>
         )}
@@ -312,7 +312,7 @@ export default function SharePage() {
       <section className="mt-12 pt-8 border-t border-line">
         <h2 className="font-display text-[1.375rem]">If the school isn&apos;t the right place</h2>
         <p className="mt-2 text-[14.5px] leading-[1.7] text-muted">
-          Sometimes the person who should help is part of the problem. Roughly a third of
+          Sometimes the person who should help is part of the problem. About a third of
           Muslim students say an adult at school has made anti-Muslim comments to them.
           These take reports directly, and none of them are your school.
         </p>

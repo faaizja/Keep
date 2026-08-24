@@ -18,7 +18,7 @@ export function Shell({
     <div className="min-h-dvh flex flex-col">
       {banner}
       <header className="px-6 sm:px-10 py-5 flex items-center justify-between gap-4">
-        <Link href="/" aria-label="Keep — home">
+        <Link href="/" aria-label="Keep, home">
           <Wordmark />
         </Link>
         {action}

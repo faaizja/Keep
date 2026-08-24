@@ -13,9 +13,9 @@ export function MigrationMarker() {
           It moved
         </p>
         <p className="mt-2 text-[14.5px] leading-[1.65] text-ink/80">
-          After an adult at school got involved, the next thing happened somewhere
-          the school can&apos;t see. This is the point the record stops being the
-          school&apos;s to notice and starts being yours to keep.
+          After an adult at school got involved, the next thing happened somewhere the
+          school can&apos;t see. From here on, nobody was going to notice this unless you
+          wrote it down.
         </p>
       </div>
     </div>

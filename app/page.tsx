@@ -19,7 +19,7 @@ export default function Landing() {
           <p className="mt-6 text-[17px] leading-[1.65] text-muted max-w-[34rem]">
             When something happens to you because of your faith, it can feel too
             small to tell anyone. Write it down here instead. Over time you will
-            have something no single moment could ever be — a record.
+            have something no single moment could ever be. A record.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
@@ -34,8 +34,8 @@ export default function Landing() {
           <div className="mt-14 pt-8 border-t border-line">
             <p className="text-[14px] leading-[1.7] text-faint max-w-[32rem]">
               No account. No name, no email, no age. Everything you write is
-              locked on your own device before it goes anywhere, and nobody —
-              including us — can read it without your Keep&nbsp;code.
+              locked on your own device before it goes anywhere, and nobody,
+              including us, can read it without your Keep&nbsp;code.
             </p>
           </div>
         </div>

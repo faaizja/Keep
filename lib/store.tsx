@@ -36,6 +36,7 @@ type Ctx = {
   code: string | null;
   isDemo: boolean;
   syncing: boolean;
+  syncError: string | null;
   /** true when a Supabase project is configured */
   canSync: boolean;
 
@@ -58,14 +59,22 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
   const [code, setCode] = useState<string | null>(null);
   const [isDemo, setIsDemo] = useState(false);
   const [syncing, setSyncing] = useState(false);
+  const [syncError, setSyncError] = useState<string | null>(null);
 
   /** The AES key lives here and nowhere else. Never serialised. */
   const keyRef = useRef<CryptoKey | null>(null);
+  /** Mirrors `record` so mutations never run inside a state updater. */
+  const recordRef = useRef<KeepRecord | null>(null);
   const idRef = useRef<string | null>(null);
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  useEffect(() => {
+    recordRef.current = record;
+  }, [record]);
+
   const wipe = useCallback(async () => {
     keyRef.current = null;
+    recordRef.current = null;
     idRef.current = null;
     setRecord(null);
     setCode(null);
@@ -107,6 +116,7 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
 
   const persist = useCallback(
     async (next: KeepRecord) => {
+      recordRef.current = next;
       setRecord(next);
       if (isDemo || !keyRef.current || !idRef.current) return;
       const sealed = await seal(keyRef.current, next);
@@ -115,8 +125,12 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
         setSyncing(true);
         try {
           await putRecord(idRef.current, sealed);
-        } catch {
-          /* offline is survivable — the local sealed copy stands */
+          setSyncError(null);
+        } catch (e) {
+          // The sealed local copy still stands, so nothing is lost, but
+          // the child needs to know their Keep code won't work elsewhere
+          // yet, rather than finding out on a library computer.
+          setSyncError(e instanceof Error ? e.message : "Couldn't reach the store.");
         } finally {
           setSyncing(false);
         }
@@ -136,6 +150,7 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
     setCode(fresh);
     setIsDemo(false);
     const blank = EMPTY_RECORD();
+    recordRef.current = blank;
     setRecord(blank);
     setStatus("ready");
     const sealed = await seal(key, blank);
@@ -155,8 +170,10 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
     setError(null);
     const normalised = normaliseCode(input);
     if (normalised === DEMO_CODE) {
+      const demo = DEMO_RECORD();
       setIsDemo(true);
-      setRecord(DEMO_RECORD());
+      recordRef.current = demo;
+      setRecord(demo);
       setCode(DEMO_CODE);
       setStatus("ready");
       return true;
@@ -176,6 +193,7 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
       const value = await unseal<KeepRecord>(key, sealed);
       keyRef.current = key;
       idRef.current = id;
+      recordRef.current = value;
       setRecord(value);
       setCode(normalised);
       setIsDemo(false);
@@ -189,27 +207,34 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const openDemo = useCallback(() => {
+    const demo = DEMO_RECORD();
     setIsDemo(true);
-    setRecord(DEMO_RECORD());
+    recordRef.current = demo;
+    setRecord(demo);
     setCode(null);
     setStatus("ready");
   }, []);
 
   const mutate = useCallback(
     async (fn: (r: KeepRecord) => KeepRecord) => {
-      setRecord((current) => {
-        if (!current) return current;
-        const next = { ...fn(current), updatedAt: new Date().toISOString() };
-        void persist(next);
-        return next;
-      });
+      const current = recordRef.current;
+      if (!current) return;
+      const next = { ...fn(current), updatedAt: new Date().toISOString() };
+      recordRef.current = next;
+      await persist(next);
     },
     [persist]
   );
 
   const addIncident = useCallback(
     (incident: Incident) =>
-      mutate((r) => ({ ...r, incidents: [...r.incidents, incident] })),
+      mutate((r) =>
+        // React runs effects twice in development; an append must be
+        // idempotent or the same entry lands in the record twice.
+        r.incidents.some((i) => i.id === incident.id)
+          ? r
+          : { ...r, incidents: [...r.incidents, incident] }
+      ),
     [mutate]
   );
 
@@ -240,6 +265,7 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
       code,
       isDemo,
       syncing,
+      syncError,
       canSync: syncAvailable(),
       begin,
       unlock,
@@ -251,7 +277,7 @@ export function KeepProvider({ children }: { children: React.ReactNode }) {
       wipe,
     }),
     [
-      status, error, record, code, isDemo, syncing,
+      status, error, record, code, isDemo, syncing, syncError,
       begin, unlock, openDemo, addIncident, replaceIncident, removeIncident, patchRecord, wipe,
     ]
   );

@@ -27,6 +27,8 @@ export default function NewEntryPage() {
   const [evidence, setEvidence] = useState<EvidenceImage[]>([]);
   const [interrupt, setInterrupt] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [editing, setEditing] = useState<EvidenceImage | null>(null);
+  const [sgSeen, setSgSeen] = useState(0);
 
   useEffect(() => {
     if (status !== "ready" || !record) router.replace("/start");
@@ -58,17 +60,14 @@ export default function NewEntryPage() {
   function attemptSave() {
     if (!ready) return;
     if (check.triggered) {
-      const seen = Number(sessionStorage.getItem("kp-sg") ?? "0");
-      sessionStorage.setItem("kp-sg", String(seen + 1));
+      setSgSeen((n) => n + 1);
       setInterrupt(true);
       return;
     }
     void commit();
   }
 
-  const level = escalationLevel(
-    typeof window === "undefined" ? 0 : Number(sessionStorage.getItem("kp-sg") ?? "0") - 1
-  );
+  const level = escalationLevel(sgSeen - 1);
 
   const atSchool = PLACES.filter((p) => p.group === "At school");
   const online = PLACES.filter((p) => p.group === "Online");
@@ -174,7 +173,7 @@ export default function NewEntryPage() {
         <input
           value={people}
           onChange={(e) => setPeople(e.target.value)}
-          placeholder="Who was involved — initials are fine (separate with commas)"
+          placeholder="Who was involved? Initials are fine, separated with commas"
           className="mt-3 w-full rounded-2xl border border-line bg-surface px-4 py-3.5 text-[15px] focus:outline-none focus:border-keep/60"
         />
 
@@ -200,19 +199,45 @@ export default function NewEntryPage() {
 
       <Section step="05" title="A screenshot, if you have one" hint="Optional.">
         {evidence.length > 0 && (
-          <div className="mb-3 flex flex-wrap gap-3">
+          <div className="mb-4 flex flex-wrap gap-3">
             {evidence.map((e) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={e.id}
-                src={e.dataUrl}
-                alt="Redacted screenshot"
-                className="h-24 w-auto rounded-lg border border-line"
-              />
+              <div key={e.id} className="w-40">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={e.dataUrl}
+                  alt="Redacted screenshot"
+                  className="h-24 w-full object-cover rounded-lg border border-line"
+                />
+                <div className="mt-1.5 flex items-center gap-3 text-[12.5px]">
+                  <button
+                    type="button"
+                    className="text-keep underline underline-offset-4"
+                    onClick={() => setEditing(e)}
+                  >
+                    blur more
+                  </button>
+                  <button
+                    type="button"
+                    className="text-signal underline underline-offset-4"
+                    onClick={() => setEvidence((cur) => cur.filter((x) => x.id !== e.id))}
+                  >
+                    remove
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         )}
-        <Redactor onAdd={(e) => setEvidence((cur) => [...cur, e])} />
+        <Redactor
+          initial={editing}
+          onCancelEdit={() => setEditing(null)}
+          onAdd={(e) => {
+            setEvidence((cur) =>
+              cur.some((x) => x.id === e.id) ? cur.map((x) => (x.id === e.id ? e : x)) : [...cur, e]
+            );
+            setEditing(null);
+          }}
+        />
       </Section>
 
       <div className="mt-10 sticky bottom-4">

@@ -3,6 +3,7 @@
 import { formatDate } from "@/lib/analysis";
 import { PLACE_BY_ID, TYPE_BY_ID } from "@/lib/taxonomy";
 import type { Incident } from "@/lib/types";
+import { EvidenceStrip } from "./EvidenceViewer";
 
 export function ClassificationChip({ label, strong }: { label: string; strong?: boolean }) {
   return (
@@ -84,16 +85,9 @@ export function IncidentCard({
       )}
 
       {incident.evidence?.length ? (
-        <div className="mt-4 flex gap-3 flex-wrap">
-          {incident.evidence.map((e) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={e.id}
-              src={e.dataUrl}
-              alt="Redacted screenshot kept as evidence"
-              className="h-28 w-auto rounded-lg border border-line"
-            />
-          ))}
+        <div className="mt-4">
+          <EvidenceStrip images={incident.evidence} size="h-32" />
+          <p className="mt-2 text-[12px] text-faint">Tap a screenshot to see it full size.</p>
         </div>
       ) : null}
 

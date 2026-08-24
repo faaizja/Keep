@@ -1,7 +1,7 @@
 import type { IncidentTypeId, PlaceId, JurisdictionId } from "./types";
 
 /* ------------------------------------------------------------------ *
- * What happened — written the way a young person would say it.
+ * What happened, written the way a young person would say it.
  * `classification` is the plain, correct name for the thing, which is
  * the whole point: these are not "banter" and not generic "bullying".
  * ------------------------------------------------------------------ */
@@ -64,7 +64,7 @@ export const INCIDENT_TYPES: IncidentType[] = [
     id: "staff",
     label: "A teacher or another adult at school said it",
     classification: "Incident involving a member of staff",
-    why: "When the person is an adult at the school, this is not only bullying — it may be discrimination by the school itself, and it may need to go to someone outside the school.",
+    why: "When the person is an adult at the school, this is not only bullying. It may be discrimination by the school itself, and it may need to go to someone outside the school.",
     weight: 3,
   },
   {
@@ -124,7 +124,7 @@ export const PLACE_BY_ID = Object.fromEntries(
 
 /* ------------------------------------------------------------------ *
  * What the receiving adult is looking at, and what duty attaches.
- * General information about published legal duties — not legal advice.
+ * General information about published legal duties. Not legal advice.
  * ------------------------------------------------------------------ */
 
 export type Jurisdiction = {
@@ -145,10 +145,10 @@ export const JURISDICTIONS: Record<JurisdictionId, Jurisdiction> = {
     duty:
       "Schools must not discriminate against or harass a pupil because of religion or belief, or because of race, and must take reasonable steps to prevent it. Harassment related to a protected characteristic is a distinct category from general bullying, and a school's behaviour policy is required to address it.",
     instruments: [
-      "Equality Act 2010, s.85 — discrimination and harassment of pupils",
-      "Equality Act 2010, s.149 — public sector equality duty",
-      "Education and Inspections Act 2006, s.89 — measures to prevent all forms of bullying",
-      "Keeping Children Safe in Education — statutory safeguarding guidance",
+      "Equality Act 2010, s.85: discrimination and harassment of pupils",
+      "Equality Act 2010, s.149: public sector equality duty",
+      "Education and Inspections Act 2006, s.89: measures to prevent all forms of bullying",
+      "Keeping Children Safe in Education: statutory safeguarding guidance",
     ],
     gap:
       "There is no legal requirement in England for a school to record racist or religiously motivated incidents. Mandatory recording was removed in 2012 and the government declined to reinstate it in March 2023. This record exists because nothing in the system produces one.",
@@ -157,14 +157,14 @@ export const JURISDICTIONS: Record<JurisdictionId, Jurisdiction> = {
     id: "united-states",
     label: "United States",
     duty:
-      "A school receiving federal funding has a duty under Title VI to address harassment based on race, colour or national origin — which the Department of Education applies to students targeted because they are, or are perceived to be, Muslim. The duty is triggered once the school has actual or constructive notice, and the legal standard is conduct that is sufficiently severe, pervasive or persistent to limit a student's ability to participate in or benefit from the school's programme.",
+      "A school receiving federal funding has a duty under Title VI to address harassment based on race, colour or national origin, which the Department of Education applies to students targeted because they are, or are perceived to be, Muslim. The duty is triggered once the school has actual or constructive notice, and the legal standard is conduct that is sufficiently severe, pervasive or persistent to limit a student's ability to participate in or benefit from the school's programme.",
     instruments: [
       "Title VI of the Civil Rights Act of 1964",
       "US Department of Education guidance on racial incidents and harassment against students",
       "State anti-bullying statutes, where applicable",
     ],
     gap:
-      "A single incident is rarely severe enough to meet the standard on its own. A dated, evidenced pattern is what 'pervasive or persistent' describes — and nothing in a student's life normally produces one. Receipt of this document is itself notice.",
+      "A single incident is rarely severe enough to meet the standard on its own. A dated, evidenced pattern is what 'pervasive or persistent' describes, and nothing in a student's life normally produces one. Receipt of this document is itself notice.",
   },
   canada: {
     id: "canada",
@@ -172,9 +172,9 @@ export const JURISDICTIONS: Record<JurisdictionId, Jurisdiction> = {
     duty:
       "Creed is a protected ground under provincial human rights codes, and school boards carry a duty to provide an environment free from discrimination and harassment. In Ontario, employees who become aware of a serious student incident are required to report it to the principal.",
     instruments: [
-      "Ontario Human Rights Code — creed as a protected ground",
+      "Ontario Human Rights Code: creed as a protected ground",
       "Education Act, s.300.2 (Bill 157, Keeping Our Kids Safe at School Act)",
-      "PPM 144 — bullying prevention and intervention",
+      "PPM 144: bullying prevention and intervention",
     ],
     gap:
       "Reporting duties are written around incidents judged individually serious. Persistent low-level religiously motivated harassment rarely qualifies one incident at a time, so the pattern never reaches the principal as a pattern.",

@@ -24,7 +24,7 @@ export default function UnlockPage() {
           Type your Keep code.
         </h1>
         <p className="mt-3 text-[15.5px] leading-[1.7] text-muted">
-          Four words and a number. It works on any computer — the school library, a
+          Four words and a number. It works on any computer: the school library, a
           friend&apos;s laptop, your phone. Your record is unlocked here, in this browser,
           and never anywhere else.
         </p>

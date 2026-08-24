@@ -10,7 +10,7 @@ let client: SupabaseClient | null = null;
 
 /**
  * Keep degrades gracefully. If no Supabase project is configured the app
- * still works completely — the record simply lives in this browser only
+ * still works completely. The record simply lives in this browser only
  * and cannot be picked up on another machine. Nothing silently breaks.
  */
 export function supabase(): SupabaseClient | null {

@@ -21,7 +21,7 @@ export default function DemoPage() {
       banner={
         <div className="bg-ink text-paper px-6 sm:px-10 py-2.5 text-[13px] flex flex-wrap items-center justify-between gap-3">
           <span>
-            A worked example. Fictional student, invented incidents — nothing here is a
+            A worked example. Fictional student, invented incidents. Nothing here is a
             real person, and no real abuse is reproduced.
           </span>
           <Link href="/start" className="underline underline-offset-4 hover:no-underline">

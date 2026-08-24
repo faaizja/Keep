@@ -3,7 +3,7 @@ import type { Incident } from "./types";
 
 /**
  * The pattern engine. Everything a single incident cannot show on its
- * own — frequency, escalation, the move online, who keeps appearing —
+ * own, such as frequency, escalation, the move online and who keeps
  * is derived here and used identically on the child's timeline and in
  * the case file.
  */

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   burnIn,
   canvasToDataUrl,
+  dataUrlToCanvas,
   detectFaces,
   fileToCanvas,
   type Box,
@@ -12,17 +13,28 @@ import type { EvidenceImage } from "@/lib/types";
 
 type Stage = "empty" | "working" | "checking";
 
-export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
+export function Redactor({
+  onAdd,
+  initial,
+  onCancelEdit,
+}: {
+  onAdd: (e: EvidenceImage) => void;
+  /** an image already added to the entry, reopened for more blurring */
+  initial?: EvidenceImage | null;
+  onCancelEdit?: () => void;
+}) {
   const [stage, setStage] = useState<Stage>("empty");
   const [status, setStatus] = useState("");
   const [autoBoxes, setAutoBoxes] = useState<Box[]>([]);
   const [manualBoxes, setManualBoxes] = useState<Box[]>([]);
   const [drag, setDrag] = useState<Box | null>(null);
   const [confirmed, setConfirmed] = useState(false);
+  const [rescanning, setRescanning] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [priorRedactions, setPriorRedactions] = useState(0);
 
   const sourceRef = useRef<HTMLCanvasElement | null>(null);
   const viewRef = useRef<HTMLCanvasElement | null>(null);
-  const wrapRef = useRef<HTMLDivElement | null>(null);
 
   const boxes = [...autoBoxes, ...manualBoxes];
 
@@ -40,21 +52,66 @@ export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
     if (stage === "checking") paint();
   }, [stage, paint]);
 
+  /* ------------------- reopening an existing image ------------------- */
+
+  const openExisting = useCallback(async (img: EvidenceImage) => {
+    setStage("working");
+    setStatus("Opening the image you already blurred…");
+    const canvas = await dataUrlToCanvas(img.dataUrl);
+    sourceRef.current = canvas;
+    setAutoBoxes([]);
+    setManualBoxes([]);
+    setConfirmed(false);
+    setEditingId(img.id);
+    setPriorRedactions(img.facesFound + img.manualRedactions);
+    setStage("checking");
+    setStatus(
+      "What you blurred before is already burned in and can't be brought back. Add anything else you've noticed."
+    );
+  }, []);
+
+  useEffect(() => {
+    if (initial) void openExisting(initial);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initial?.id]);
+
+  /* --------------------------- new image ---------------------------- */
+
   async function onFile(file: File) {
     setStage("working");
     setStatus("Reading the image on this device…");
     const canvas = await fileToCanvas(file);
     sourceRef.current = canvas;
-    setStatus("Looking for faces…");
+    setStatus("Looking for faces, including small ones…");
     const faces = await detectFaces(canvas);
     setAutoBoxes(faces);
     setManualBoxes([]);
     setConfirmed(false);
+    setEditingId(null);
+    setPriorRedactions(0);
     setStage("checking");
+    setStatus(describe(faces.length));
+  }
+
+  function describe(n: number) {
+    return n
+      ? `We found and blurred ${n} face${n > 1 ? "s" : ""}.`
+      : "We didn't find any faces in this one. That doesn't mean it's clear. Screenshots hide small profile pictures, so have a proper look.";
+  }
+
+  async function rescan() {
+    const src = sourceRef.current;
+    if (!src) return;
+    setRescanning(true);
+    setStatus("Looking harder, with smaller tiles and a lower threshold…");
+    const faces = await detectFaces(src, true);
+    setAutoBoxes(faces);
+    setConfirmed(false);
+    setRescanning(false);
     setStatus(
       faces.length
-        ? `We found and blurred ${faces.length} face${faces.length > 1 ? "s" : ""}.`
-        : "We didn't find any faces in this one. That doesn't mean it's clear — have a proper look."
+        ? `Found ${faces.length} this time. Some of those might not be faces. That's the cost of looking this hard, and you can still add your own.`
+        : "Still nothing found automatically. Anything that needs hiding, drag over it yourself."
     );
   }
 
@@ -63,9 +120,10 @@ export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
   function toCanvasPoint(e: React.PointerEvent) {
     const view = viewRef.current!;
     const rect = view.getBoundingClientRect();
-    const sx = view.width / rect.width;
-    const sy = view.height / rect.height;
-    return { x: (e.clientX - rect.left) * sx, y: (e.clientY - rect.top) * sy };
+    return {
+      x: (e.clientX - rect.left) * (view.width / rect.width),
+      y: (e.clientY - rect.top) * (view.height / rect.height),
+    };
   }
 
   const startRef = useRef<{ x: number; y: number } | null>(null);
@@ -89,8 +147,25 @@ export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
   }
 
   function onUp() {
+    const start = startRef.current;
     if (drag && drag.w > 6 && drag.h > 6) {
       setManualBoxes((b) => [...b, drag]);
+      setConfirmed(false);
+    } else if (start && sourceRef.current) {
+      // A tap rather than a drag. Profile pictures in a chat screenshot
+      // are tiny and fiddly to drag a box around, so one tap drops a
+      // patch over whatever is under your finger.
+      const src = sourceRef.current;
+      const size = Math.max(28, Math.min(src.width, src.height) * 0.09);
+      setManualBoxes((b) => [
+        ...b,
+        {
+          x: Math.max(0, start.x - size / 2),
+          y: Math.max(0, start.y - size / 2),
+          w: size,
+          h: size,
+        },
+      ]);
       setConfirmed(false);
     }
     setDrag(null);
@@ -99,28 +174,37 @@ export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
 
   /* ----------------------------- save ------------------------------ */
 
+  function reset() {
+    sourceRef.current = null;
+    setAutoBoxes([]);
+    setManualBoxes([]);
+    setConfirmed(false);
+    setEditingId(null);
+    setPriorRedactions(0);
+    setStage("empty");
+    setStatus("");
+    onCancelEdit?.();
+  }
+
   function save() {
     const src = sourceRef.current;
     if (!src || !confirmed) return;
     const composed = burnIn(src, boxes);
     onAdd({
-      id: crypto.randomUUID(),
+      id: editingId ?? crypto.randomUUID(),
       dataUrl: canvasToDataUrl(composed),
       width: composed.width,
       height: composed.height,
       facesFound: autoBoxes.length,
       textRegionsFound: 0,
-      manualRedactions: manualBoxes.length,
+      manualRedactions: manualBoxes.length + priorRedactions,
       humanChecked: true,
       checkedAt: new Date().toISOString(),
     });
-    sourceRef.current = null;
-    setAutoBoxes([]);
-    setManualBoxes([]);
-    setConfirmed(false);
-    setStage("empty");
-    setStatus("");
+    reset();
   }
+
+  /* ----------------------------- views ------------------------------ */
 
   if (stage === "empty") {
     return (
@@ -151,16 +235,18 @@ export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
     );
   }
 
+  const nothingBlurred = boxes.length === 0;
+
   return (
     <div className="rounded-2xl border border-line bg-surface p-4 sm:p-5">
       <p className="text-[14px] text-ink">{status}</p>
       <p className="mt-1.5 text-[13px] leading-[1.6] text-muted">
         Keep does <strong className="font-medium text-ink">not</strong> automatically find
-        names, @handles or phone numbers. Drag over anything like that — and over any
-        face we missed.
+        names, @handles or phone numbers. Drag a box over anything like that, or just tap
+        once on a small profile picture to cover it.
       </p>
 
-      <div ref={wrapRef} className="mt-4 overflow-hidden rounded-xl border border-line">
+      <div className="mt-4 overflow-hidden rounded-xl border border-line">
         <canvas
           ref={viewRef}
           onPointerDown={onDown}
@@ -170,10 +256,20 @@ export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
         />
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-3 text-[13px]">
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px]">
         <span className="text-muted">
           {autoBoxes.length} found automatically · {manualBoxes.length} added by you
         </span>
+
+        <button
+          type="button"
+          disabled={rescanning}
+          onClick={rescan}
+          className="text-keep underline underline-offset-4 disabled:opacity-50"
+        >
+          {rescanning ? "looking…" : "look harder for faces"}
+        </button>
+
         {manualBoxes.length > 0 && (
           <button
             type="button"
@@ -181,6 +277,20 @@ export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
             onClick={() => setManualBoxes((b) => b.slice(0, -1))}
           >
             undo last
+          </button>
+        )}
+
+        {!nothingBlurred && (
+          <button
+            type="button"
+            className="text-signal underline underline-offset-4"
+            onClick={() => {
+              setAutoBoxes([]);
+              setManualBoxes([]);
+              setConfirmed(false);
+            }}
+          >
+            clear every blur
           </button>
         )}
       </div>
@@ -199,26 +309,22 @@ export function Redactor({ onAdd }: { onAdd: (e: EvidenceImage) => void }) {
 
       <div className="mt-4 flex gap-3">
         <button type="button" className="btn-primary flex-1" disabled={!confirmed} onClick={save}>
-          {confirmed ? "Add it to the entry" : "Have a look first"}
+          {!confirmed
+            ? "Have a look first"
+            : editingId
+              ? "Save the changes"
+              : "Add it to the entry"}
         </button>
-        <button
-          type="button"
-          className="btn-quiet"
-          onClick={() => {
-            sourceRef.current = null;
-            setStage("empty");
-            setAutoBoxes([]);
-            setManualBoxes([]);
-          }}
-        >
+        <button type="button" className="btn-quiet" onClick={reset}>
           Cancel
         </button>
       </div>
 
       <p className="mt-3 text-[12px] leading-[1.6] text-faint">
-        The blurring is permanent — Keep saves the blurred version and throws the
-        original away, so there is nothing left to leak. Location data the phone
-        recorded is stripped at the same time.
+        The blurring is permanent. Keep saves the blurred version and throws the original
+        away, so there is nothing left to leak. Location data the phone recorded is
+        stripped at the same time. You can come back and blur more later, but you
+        can&apos;t un-blur.
       </p>
     </div>
   );

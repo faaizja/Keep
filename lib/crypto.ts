@@ -99,7 +99,7 @@ export function isPlausibleCode(code: string): boolean {
 
 /* ------------------------ key derivation ------------------------- */
 
-/** The Supabase row id. A hash — never the code itself. */
+/** The Supabase row id. A hash, never the code itself. */
 export async function recordId(code: string): Promise<string> {
   return toHex(await sha256(`keep|v1|record-id|${normaliseCode(code)}`));
 }

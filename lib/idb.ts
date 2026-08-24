@@ -2,7 +2,7 @@
 
 /**
  * A very small IndexedDB wrapper. Only ever holds sealed ciphertext,
- * never plaintext — so the contents of this store are meaningless to
+ * never plaintext, so the contents of this store are meaningless to
  * anyone who opens developer tools on a shared computer.
  */
 

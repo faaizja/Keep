@@ -118,8 +118,8 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
           </h1>
           <p className="mt-4 text-[15.5px] leading-[1.75] text-paper/75 print:text-black/70">
             {who} recorded {pattern.count} incidents between{" "}
-            {pattern.first ? formatDate(pattern.first) : "—"} and{" "}
-            {pattern.last ? formatDate(pattern.last) : "—"}, and has chosen to show them
+            {pattern.first ? formatDate(pattern.first) : "?"} and{" "}
+            {pattern.last ? formatDate(pattern.last) : "?"}, and has chosen to show them
             to you. They were written down as they happened, not recalled afterwards.
           </p>
         </div>
@@ -271,7 +271,7 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
                 }}
                 className="btn-primary mt-4"
               >
-                {marking ? "Sending…" : "I've read this — let them know"}
+                {marking ? "Sending…" : "I've read this, let them know"}
               </button>
             ) : (
               <p className="mt-4 text-[14px] text-muted">
@@ -300,7 +300,7 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
             remains at this address.
           </p>
           <p className="mt-4 text-[12.5px] leading-[1.7] text-faint">
-            Relevant instruments — {j.label}: {j.instruments.join("; ")}. This is general
+            Relevant instruments for {j.label}: {j.instruments.join("; ")}. This is general
             information about published duties, not legal advice.
           </p>
         </footer>

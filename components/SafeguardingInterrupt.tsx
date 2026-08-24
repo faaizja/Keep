@@ -4,7 +4,7 @@ import { useState } from "react";
 import { HELPLINES, type SafeguardingResult } from "@/lib/safeguarding";
 
 /**
- * Shown before the entry is saved — not after, and never instead of
+ * Shown before the entry is saved, not after, and never instead of
  * saving. Keep does not contact anyone on the child's behalf; it puts
  * the options in front of them and lets them choose.
  */

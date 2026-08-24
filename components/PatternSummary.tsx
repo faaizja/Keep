@@ -70,7 +70,7 @@ export function PatternSummary({ pattern }: { pattern: Pattern }) {
         <ul className="mt-7 pt-6 border-t border-line space-y-2">
           {signals.map((s) => (
             <li key={s} className="text-[14px] text-muted flex gap-2.5">
-              <span className="text-keep mt-[2px]">—</span>
+              <span className="text-keep mt-[2px]">·</span>
               <span>{s}</span>
             </li>
           ))}

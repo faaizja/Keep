@@ -21,7 +21,7 @@ export default function StartPage() {
     <Shell>
       <div className="pt-8 max-w-measure">
         <h1 className="font-display text-[2rem] leading-[1.15] tracking-[-0.02em]">
-          Before you start — three things, and then it&apos;s yours.
+          Three things before you start, and then it&apos;s yours.
         </h1>
 
         <ol className="mt-8 space-y-6">
@@ -38,7 +38,7 @@ export default function StartPage() {
             <p className="text-[15.5px] leading-[1.7] text-muted">
               <span className="text-ink font-medium">Everything is locked before it
               leaves this browser.</span> Your entries are stored as scrambled text that
-              nobody — not your school, not us — can read without your Keep code.
+              nobody can read without your Keep code. Not your school, and not us.
             </p>
           </li>
           <li className="flex gap-4">
