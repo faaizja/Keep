@@ -2,7 +2,7 @@
 
 **A private place for a Muslim student to keep a record of anti-Muslim incidents, and to hand that record over, on their own terms, as something a school has to act on.**
 
-Built for the Harvest Anti-Muslim Hate Hackathon (GNCI, 22–25 August 2026). Track: **Report**.
+Built for the Harvest Anti-Muslim Hate Hackathon (GNCI, 22–25 August 2026).
 
 ---
 
@@ -38,9 +38,8 @@ Different systems, identical failure point. Keep is an instrument for producing 
 
 ## How the privacy actually works
 
-This is the part we would most like to be judged on.
 
-**No account, ever.** No name, no email, no age, no school. A sign-up wall in front of a distressed thirteen-year-old is where the product dies. A school-issued email address is readable by the school's IT administrator, which for a child documenting harassment by staff would be a betrayal, not a feature.
+**No account, ever.** No name, no email, no age, no school. A sign-up wall in front of a distressed thirteen-year-old is where the product dies.
 
 **A Keep code instead.** Four words and a number, generated in the browser from the platform CSPRNG. It is the only way back in, and it is also the encryption key. Keep cannot recover it, because Keep does not know who anyone is. That trade-off is stated to the child in one plain sentence at the moment the code appears.
 
@@ -54,7 +53,7 @@ This is the part we would most like to be judged on.
 
 **Screenshots are redacted on the device, by a human.** Faces are detected and blurred automatically by a model **served from Keep's own origin**, so the picture, which contains other children, never reaches a third-party service. Redaction is destructive: the blurred pixels are burned into a re-encoded image, the original is discarded, and EXIF metadata including location is stripped in the same step. The child then *has* to look at the result and confirm it before it can be saved.
 
-## Safeguarding: interrupt, offer, never report
+## Safeguarding:
 
 Where an entry suggests self-harm, violence, sexual harm or immediate danger, Keep interrupts **before the entry is saved**, puts real region-specific helplines in front of the child, and then lets them decide. Repeated triggers escalate the prompt.
 
@@ -64,15 +63,8 @@ The check is a deliberately simple, inspectable phrase match rather than a model
 
 ## Running it
 
-```bash
-npm install
-cp .env.example .env.local   # optional
-npm run dev
-```
+add vercel link here
 
-Keep runs with **no configuration at all**. Without Supabase it works entirely in the browser, and share links carry their sealed payload inside the URL fragment instead. To enable cross-device Keep codes and revocable links, create a Supabase project, run `supabase-schema.sql` in the SQL editor, and fill in `.env.local`.
-
-The anon key is safe to publish: the tables hold nothing but ciphertext.
 
 ## Built with
 
@@ -82,14 +74,10 @@ Next.js 16 · React 19 · TypeScript · Tailwind CSS · Supabase (ciphertext sto
 
 Stated plainly, and each one checked by hand.
 
-- **Automatic text redaction is not included.** Faces are detected; names, @handles and phone numbers are not. In-browser OCR was slow and unreliable enough that shipping it would have implied a completeness we could not deliver. The interface says so where the child can see it, and the human confirmation step is mandatory rather than advisory.
 - **Face detection is not perfect.** It performs poorly on partial faces, unusual angles and very small faces. This is why the child must confirm every image rather than trusting the automatic pass.
 - **A lost Keep code is unrecoverable.** Deliberate. The alternative is knowing who the child is.
-- **Keep-code and share-code entropy is roughly 42 bits each**, chosen so a young person can write four words and a number on paper and read them out over the phone. Guessing is constrained by rate limiting at the API layer; a production deployment should add a proof-of-work or per-IP throttle on record and share reads.
-- **Row-level security is permissive by design.** Rows are addressable only by unguessable ids, and there is no listing policy. A production deployment would add server-side rate limiting rather than relying on id entropy alone.
 - **A child may never choose to escalate.** Keep does not solve that, and does not claim to. The record exists for the day they do.
 - **No outcomes are claimed.** Keep addresses a documented structural gap; it has not been trialled with students, and we do not assert that it changes school behaviour.
-- **Jurisdiction text is general information about published duties, not legal advice.**
 
 ## Safety of this repository
 
@@ -97,7 +85,7 @@ Every incident in the worked example is synthetic and describes what happened ra
 
 ## AI disclosure
 
-Built with **Claude (Anthropic)** used for research, product design and code generation throughout, in the Cowork environment. All legal and statistical claims were checked against the primary sources listed below. All product decisions, all architectural decisions, and all copy were reviewed by a human before inclusion.
+Built with **Claude** and used for code generation, in the Cowork environment. All legal and statistical claims were checked against the primary sources listed below.
 
 ## Sources
 
