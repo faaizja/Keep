@@ -27,6 +27,7 @@ export default function RecordPage() {
 
   return (
     <Shell
+      wide
       action={
         <div className="flex items-center gap-2">
           {record.incidents.length > 0 && (

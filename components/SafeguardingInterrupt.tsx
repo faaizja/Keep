@@ -25,7 +25,7 @@ export function SafeguardingInterrupt({
 
   return (
     <div className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-y-auto">
-      <div className="w-full max-w-lg bg-surface rounded-t-3xl sm:rounded-3xl shadow-lift p-6 sm:p-8 my-0 sm:my-8">
+      <div className="rise w-full max-w-lg bg-surface rounded-t-3xl sm:rounded-3xl shadow-lift p-6 sm:p-8 my-0 sm:my-8">
         <h2 className="font-display text-[1.5rem] leading-[1.25] tracking-[-0.01em]">
           {result.headline}
         </h2>

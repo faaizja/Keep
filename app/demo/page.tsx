@@ -18,6 +18,7 @@ export default function DemoPage() {
 
   return (
     <Shell
+      wide
       banner={
         <div className="bg-ink text-paper px-6 sm:px-10 py-2.5 text-[13px] flex flex-wrap items-center justify-between gap-3">
           <span>

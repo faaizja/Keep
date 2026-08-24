@@ -48,7 +48,7 @@ This is the part we would most like to be judged on.
 
 **The server holds ciphertext it cannot read.** Two Supabase tables of `{ id, iv, blob }`. The row id is a SHA-256 hash of the Keep code, derived down a *different* path from the encryption key, so an id cannot be worked backwards into a key. There is no key anywhere in the system.
 
-**Share links keep their key out of the request.** The decryption key travels in the URL fragment, which browsers never transmit to a server. The recipient's own browser does the decryption. The child can switch the link off at any time, and the bundle is emptied and the address goes dead.
+**A share is four words, not a wall of base64.** A link a child cannot write on a slip of paper is a link they cannot hand to their head of year, so a share is addressed the same way a record is: a short code the child can say out loud. The recipient types it at `/open`, with no account and nothing to install. The bundle's address is a truncated hash of the code and its key is derived from the code down a separate path, so holding the address gives no route to the contents. A link works too, with the code in the URL fragment, which browsers never transmit to a server. The child can switch a share off at any time, and the bundle is emptied and the address goes dead.
 
 **The shared computer is cleaned up.** Local data is wiped on close and after an idle timeout, so the next child who sits down at the library machine finds an app with nothing in it.
 
@@ -85,7 +85,7 @@ Stated plainly, and each one checked by hand.
 - **Automatic text redaction is not included.** Faces are detected; names, @handles and phone numbers are not. In-browser OCR was slow and unreliable enough that shipping it would have implied a completeness we could not deliver. The interface says so where the child can see it, and the human confirmation step is mandatory rather than advisory.
 - **Face detection is not perfect.** It performs poorly on partial faces, unusual angles and very small faces. This is why the child must confirm every image rather than trusting the automatic pass.
 - **A lost Keep code is unrecoverable.** Deliberate. The alternative is knowing who the child is.
-- **Keep-code entropy is roughly 42 bits**, chosen so a young person can write four words and a number on paper. Guessing is constrained by rate limiting at the API layer; a production deployment should add a proof-of-work or per-IP throttle on record reads.
+- **Keep-code and share-code entropy is roughly 42 bits each**, chosen so a young person can write four words and a number on paper and read them out over the phone. Guessing is constrained by rate limiting at the API layer; a production deployment should add a proof-of-work or per-IP throttle on record and share reads.
 - **Row-level security is permissive by design.** Rows are addressable only by unguessable ids, and there is no listing policy. A production deployment would add server-side rate limiting rather than relying on id entropy alone.
 - **A child may never choose to escalate.** Keep does not solve that, and does not claim to. The record exists for the day they do.
 - **No outcomes are claimed.** Keep addresses a documented structural gap; it has not been trialled with students, and we do not assert that it changes school behaviour.

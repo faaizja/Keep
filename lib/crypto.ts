@@ -187,3 +187,47 @@ export function randomId(bytes = 12): string {
   crypto.getRandomValues(b);
   return toBase64Url(b);
 }
+
+/* ------------------------- share codes --------------------------- *
+ * A link is not something a thirteen-year-old can hand to their head
+ * of year on a slip of paper, and a wall of base64 in a text message
+ * looks like a scam. So a share is addressed the same way a record is:
+ * by four words and a number that a person can say out loud.
+ *
+ * The id is a truncated hash of the code and the key is derived from
+ * it down a separate path, so the address of a bundle still gives no
+ * route to its contents. The code goes on paper, or in the fragment of
+ * a link, which browsers never send to a server.
+ * ----------------------------------------------------------------- */
+
+/** Short, unguessable, and derivable from the code alone. */
+export async function shareId(code: string): Promise<string> {
+  const full = toHex(await sha256(`keep|v1|share-id|${normaliseCode(code)}`));
+  return full.slice(0, 20);
+}
+
+export async function deriveShareKey(code: string): Promise<CryptoKey> {
+  const normalised = normaliseCode(code);
+  const salt = await sha256(`keep|v1|share-salt|${normalised}`);
+
+  const material = await crypto.subtle.importKey(
+    "raw",
+    enc.encode(`keep|v1|share-kdf|${normalised}`),
+    "PBKDF2",
+    false,
+    ["deriveKey"]
+  );
+
+  return crypto.subtle.deriveKey(
+    {
+      name: "PBKDF2",
+      salt: salt as unknown as BufferSource,
+      iterations: PBKDF2_ITERATIONS,
+      hash: "SHA-256",
+    },
+    material,
+    { name: "AES-GCM", length: 256 },
+    false,
+    ["encrypt", "decrypt"]
+  );
+}

@@ -17,7 +17,7 @@ export function KeepCodePanel({ code, onAck }: { code: string; onAck: () => void
   }
 
   return (
-    <section className="card p-6 sm:p-8 border-keep/25 bg-keepsoft/40">
+    <section className="pop card p-6 sm:p-8 border-keep/25 bg-keepsoft/40">
       <p className="label text-keepdeep">Your Keep code</p>
 
       <p className="mt-4 font-display text-[1.5rem] sm:text-[2rem] leading-tight tracking-[-0.01em] text-keepdeep break-words">

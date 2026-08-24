@@ -31,6 +31,13 @@ export default function Landing() {
             </Link>
           </div>
 
+          <p className="mt-8 text-[14px] text-muted">
+            Been given a code by someone?{" "}
+            <Link href="/open" className="text-keep underline underline-offset-4">
+              Open their record
+            </Link>
+          </p>
+
           <div className="mt-14 pt-8 border-t border-line">
             <p className="text-[14px] leading-[1.7] text-faint max-w-[32rem]">
               No account. No name, no email, no age. Everything you write is

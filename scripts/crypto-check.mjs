@@ -59,4 +59,29 @@ catch { console.log("tamper detected: PASS"); }
 console.log("deterministic id:", (await recordId(" River  Copper-Lantern_Heron 482 ")) === id ? "PASS" : "FAIL");
 console.log("deterministic key:", JSON.stringify(await unseal(await deriveKey("RIVER-copper-lantern-heron-482"), sealed)) === JSON.stringify(record) ? "PASS" : "FAIL");
 
+// --- share codes ---------------------------------------------------
+async function shareId(code) {
+  return hex(await sha256(`keep|v1|share-id|${norm(code)}`)).slice(0, 20);
+}
+async function deriveShareKey(code) {
+  const n = norm(code);
+  const salt = await sha256(`keep|v1|share-salt|${n}`);
+  const material = await crypto.subtle.importKey("raw", enc.encode(`keep|v1|share-kdf|${n}`), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: 400000, hash: "SHA-256" },
+    material, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+}
+
+const share = "willow-garnet-otter-thistle-317";
+const sid = await shareId(share);
+const skey = await deriveShareKey(share);
+const sbundle = await seal(skey, { incidents: [{ id: "b" }] });
+
+console.log("share id is short:", sid.length === 20 ? "PASS" : "FAIL");
+console.log("share round trip:", (await unseal(skey, sbundle)).incidents[0].id === "b" ? "PASS" : "FAIL");
+try { await unseal(await deriveShareKey("willow-garnet-otter-thistle-318"), sbundle); console.log("wrong share code rejected: FAIL"); }
+catch { console.log("wrong share code rejected: PASS"); }
+console.log("share id != record id:", sid !== (await recordId(share)).slice(0, 20) ? "PASS" : "FAIL");
+console.log("share key != record key:",
+  await (async () => { try { await unseal(await deriveKey(share), sbundle); return false; } catch { return true; } })() ? "PASS" : "FAIL");
+
 console.log(`\nPBKDF2 derivation took ${kdfMs}ms (this is the deliberate cost that makes guessing expensive)`);

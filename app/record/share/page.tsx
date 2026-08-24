@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Shell } from "@/components/Shell";
 import { Chip } from "@/components/Chip";
 import { formatDate } from "@/lib/analysis";
-import { exportKey, randomId, randomKey, seal } from "@/lib/crypto";
+import { deriveShareKey, generateKeepCode, seal, shareId } from "@/lib/crypto";
 import { getShareStatuses, putShare, revokeShare, syncAvailable } from "@/lib/supabase";
 import { JURISDICTION_LIST, TYPE_BY_ID } from "@/lib/taxonomy";
 import { OUTSIDE_ROUTES as ROUTES } from "@/lib/safeguarding";
@@ -23,6 +23,7 @@ export default function SharePage() {
   const [yearGroup, setYearGroup] = useState("");
   const [jurisdiction, setJurisdiction] = useState<JurisdictionId>("england-wales");
   const [link, setLink] = useState<string | null>(null);
+  const [code, setCode] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -70,23 +71,27 @@ export default function SharePage() {
         jurisdiction,
       };
 
-      const key = await randomKey();
+      // Four words and a number, exactly like a Keep code. The bundle is
+      // sealed with a key derived from it and stored under a short hash
+      // of it, so the address gives no route to the contents.
+      const shareCode = generateKeepCode();
+      const key = await deriveShareKey(shareCode);
+      const id = await shareId(shareCode);
       const sealed = await seal(key, payload);
-      const id = randomId();
-      const keyText = await exportKey(key);
 
       let url: string;
-      if (syncAvailable() && !isDemo) {
+      if (syncAvailable()) {
         await putShare(id, sealed);
-        url = `${window.location.origin}/case/${id}#k=${keyText}`;
+        url = `${window.location.origin}/case/${id}#c=${shareCode}`;
       } else {
-        // No project configured (or a walkthrough): the whole sealed bundle
-        // travels inside the fragment, so the link still works with no
-        // server involved at all. Nothing is stored anywhere.
+        // Nothing configured to store it, so the sealed bundle travels
+        // inside the link itself. Long, but it works with no server.
         const inline = encodeURIComponent(`${sealed.iv}.${sealed.blob}`);
-        url = `${window.location.origin}/case/${id}#k=${keyText}&d=${inline}`;
+        url = `${window.location.origin}/case/${id}#c=${shareCode}&d=${inline}`;
       }
+
       setLink(url);
+      setCode(shareCode);
 
       const ref: ShareRef = {
         id,
@@ -163,8 +168,10 @@ export default function SharePage() {
                   )
                 }
                 className={
-                  "w-full text-left rounded-2xl border px-4 py-3.5 transition-colors " +
-                  (on ? "border-keep bg-keepsoft/60" : "border-line bg-surface hover:border-ink/20")
+                  "w-full text-left rounded-2xl border px-4 py-3.5 transition-all duration-200 active:scale-[0.995] " +
+                  (on
+                    ? "border-keep bg-keepsoft/60"
+                    : "border-line bg-surface hover:border-ink/20 hover:-translate-y-[1px]")
                 }
               >
                 <div className="flex items-center justify-between gap-4">
@@ -243,40 +250,71 @@ export default function SharePage() {
         </button>
         {err && <p className="mt-3 text-[14px] text-signal">{err}</p>}
 
-        {link && (
-          <div className="mt-5 card p-6">
-            <p className="label text-keepdeep">Your link</p>
-            <p className="mt-3 break-all rounded-xl bg-paper border border-line px-4 py-3 text-[13px] font-mono text-ink/80">
-              {link}
+        {link && code && (
+          <div className="pop mt-6 rounded-2xl border border-keep/25 bg-keepsoft/40 p-6">
+            <p className="label text-keepdeep">Give them this</p>
+            <p className="mt-3 font-display text-[1.5rem] sm:text-[2rem] leading-tight tracking-[-0.01em] text-keepdeep break-words">
+              {code}
             </p>
-            <div className="mt-4 flex flex-wrap gap-3">
+            <p className="mt-3 text-[14.5px] leading-[1.7] text-ink/80">
+              Write it down and hand it over, or say it out loud. They type it at{" "}
+              <span className="font-medium">
+                {typeof window !== "undefined" ? window.location.host : ""}/open
+              </span>{" "}
+              and your record opens. Nothing else needed, no account, no app.
+            </p>
+
+            <div className="mt-5 flex flex-wrap gap-3">
               <button
                 className="btn-primary !py-2.5 !px-5 text-[14px]"
                 onClick={async () => {
-                  await navigator.clipboard.writeText(link);
+                  await navigator.clipboard.writeText(code);
                   setCopied(true);
                   setTimeout(() => setCopied(false), 2000);
                 }}
               >
-                {copied ? "Copied" : "Copy the link"}
+                {copied ? "Copied" : "Copy the code"}
               </button>
-              <a
-                href={link}
-                target="_blank"
-                rel="noreferrer"
+              <button
                 className="btn-quiet !py-2.5 !px-5 text-[14px]"
+                onClick={() => window.print()}
               >
-                See what they&apos;ll see
-              </a>
+                Print it
+              </button>
             </div>
-            <p className="mt-4 text-[13px] leading-[1.65] text-muted">
-              The part after the <span className="font-mono">#</span> is the key that
-              unlocks it. Browsers never send that part to a server, so what we hold is a
-              bundle we can&apos;t open. Send the whole link, and only to the person you
-              meant it for.
-            </p>
+
+            <details className="mt-6 pt-5 border-t border-keep/20">
+              <summary className="cursor-pointer text-[13.5px] text-keepdeep">
+                Or send a link instead
+              </summary>
+              <p className="mt-3 break-all rounded-xl bg-surface border border-line px-4 py-3 text-[12.5px] font-mono text-ink/75">
+                {link}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-3">
+                <button
+                  className="btn-quiet !py-2.5 !px-5 text-[14px]"
+                  onClick={() => navigator.clipboard.writeText(link)}
+                >
+                  Copy the link
+                </button>
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-quiet !py-2.5 !px-5 text-[14px]"
+                >
+                  See what they&apos;ll see
+                </a>
+              </div>
+              <p className="mt-3 text-[12.5px] leading-[1.65] text-muted">
+                The part after the <span className="font-mono">#</span> is the code again.
+                Browsers never send that part to a server, so what we hold is a bundle we
+                can&apos;t open.
+              </p>
+            </details>
           </div>
         )}
+
       </section>
 
       {/* ------------------------- live links ---------------------------- */}

@@ -1,86 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import type { EvidenceImage } from "@/lib/types";
 
 /**
- * Screenshots sit small in the timeline so the entry stays readable.
- * Tapping one opens it full size, because a thumbnail of a group chat
- * is useless for actually reading what was said.
+ * Screenshots sit small so they never crowd out the entry, and grow
+ * under the pointer, because a thumbnail of a group chat is useless for
+ * reading what was actually said. No modal, no dimmed page: look at it,
+ * move away, carry on reading.
  */
 export function EvidenceStrip({
   images,
-  size = "h-28",
+  align = "left",
 }: {
   images: EvidenceImage[];
-  size?: string;
+  align?: "left" | "right";
 }) {
-  const [open, setOpen] = useState<EvidenceImage | null>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(null);
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
   if (!images.length) return null;
 
   return (
-    <>
-      <div className="flex gap-3 flex-wrap">
-        {images.map((e) => (
-          <button
-            key={e.id}
-            type="button"
-            onClick={() => setOpen(e)}
-            title="Tap to see it full size"
-            className={`group relative ${size} rounded-lg border border-line overflow-hidden transition-transform duration-150 hover:scale-[1.04] hover:border-keep/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-keep/40`}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={e.dataUrl}
-              alt="Redacted screenshot kept as evidence"
-              className="h-full w-auto block"
-            />
-            <span className="absolute inset-0 bg-ink/0 group-hover:bg-ink/10 transition-colors" />
-          </button>
-        ))}
-      </div>
-
-      {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          onClick={() => setOpen(null)}
-          className="fixed inset-0 z-50 bg-ink/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 print:hidden"
+    <div className={"flex gap-2.5 flex-wrap " + (align === "right" ? "justify-end" : "")}>
+      {images.map((e) => (
+        <figure
+          key={e.id}
+          className="relative h-24 w-24 shrink-0"
+          style={{ zIndex: 0 }}
         >
-          <div className="max-h-full max-w-4xl w-full flex flex-col items-center gap-4">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={open.dataUrl}
-              alt="Redacted screenshot, full size"
-              onClick={(e) => e.stopPropagation()}
-              className="max-h-[80dvh] w-auto max-w-full rounded-xl border border-paper/20 shadow-lift bg-surface"
-            />
-            <p className="text-[13px] text-paper/80 text-center">
-              {open.facesFound > 0
-                ? `${open.facesFound} face${open.facesFound > 1 ? "s" : ""} blurred automatically`
-                : "No faces found automatically"}
-              {open.manualRedactions > 0
-                ? `, ${open.manualRedactions} blurred by hand`
-                : ""}
-              . Tap anywhere to close.
-            </p>
-          </div>
-        </div>
-      )}
-    </>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={e.dataUrl}
+            alt="Redacted screenshot kept as evidence"
+            className={
+              "absolute top-0 h-24 w-auto max-w-none rounded-lg border border-line bg-surface " +
+              "object-cover object-top transition-transform duration-300 ease-out " +
+              "hover:scale-[3.2] hover:shadow-lift hover:border-keep/40 hover:z-50 " +
+              (align === "right"
+                ? "right-0 origin-top-right"
+                : "left-0 origin-top-left")
+            }
+          />
+        </figure>
+      ))}
+    </div>
   );
 }

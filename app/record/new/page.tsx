@@ -201,7 +201,7 @@ export default function NewEntryPage() {
         {evidence.length > 0 && (
           <div className="mb-4 flex flex-wrap gap-3">
             {evidence.map((e) => (
-              <div key={e.id} className="w-40">
+              <div key={e.id} className="pop w-40">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={e.dataUrl}

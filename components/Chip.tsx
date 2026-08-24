@@ -17,15 +17,30 @@ export function Chip({
       onClick={onClick}
       aria-pressed={selected}
       className={
-        "text-left rounded-2xl border px-4 py-3 text-[14.5px] leading-[1.45] transition-all duration-150 " +
+        "relative text-left rounded-2xl border px-4 py-3 pr-9 text-[14.5px] leading-[1.45] " +
+        "transition-all duration-200 active:scale-[0.99] " +
         (selected
           ? strong
             ? "border-signal bg-signalsoft text-ink"
             : "border-keep bg-keepsoft text-keepdeep"
-          : "border-line bg-surface text-ink hover:border-ink/25")
+          : "border-line bg-surface text-ink hover:border-ink/25 hover:-translate-y-[1px]")
       }
     >
       {children}
+      {selected && (
+        <span
+          aria-hidden
+          className={
+            "tick absolute right-3 top-3 grid h-4 w-4 place-items-center rounded-full text-white " +
+            (strong ? "bg-signal" : "bg-keep")
+          }
+        >
+          <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
+            <path d="M1.5 5.2 3.8 7.5 8.5 2.6" stroke="currentColor" strokeWidth="1.8"
+                  strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      )}
     </button>
   );
 }

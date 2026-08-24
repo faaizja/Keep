@@ -238,7 +238,7 @@ export function Redactor({
   const nothingBlurred = boxes.length === 0;
 
   return (
-    <div className="rounded-2xl border border-line bg-surface p-4 sm:p-5">
+    <div className="pop rounded-2xl border border-line bg-surface p-4 sm:p-5">
       <p className="text-[14px] text-ink">{status}</p>
       <p className="mt-1.5 text-[13px] leading-[1.6] text-muted">
         Keep does <strong className="font-medium text-ink">not</strong> automatically find

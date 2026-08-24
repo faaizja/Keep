@@ -20,6 +20,7 @@
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5
            text-[15px] font-medium transition-all duration-150 select-none
+           active:scale-[0.985]
            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-keep/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
   }
   .btn-primary { @apply btn bg-keep text-white hover:bg-keepdeep active:scale-[0.99]; }
@@ -29,6 +30,53 @@
   .label       { @apply text-[13px] font-medium tracking-[0.02em] text-muted uppercase; }
 }
 
+@layer utilities {
+  /* Movement here is meant to be felt rather than watched. Nothing
+     bounces, nothing slides across the screen, and everything is off
+     under prefers-reduced-motion. */
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(7px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .rise { animation: rise 380ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  @keyframes pop {
+    0%   { opacity: 0; transform: scale(0.96); }
+    60%  { opacity: 1; transform: scale(1.006); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .pop { animation: pop 280ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  @keyframes tick {
+    from { opacity: 0; transform: scale(0.4); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .tick { animation: tick 220ms cubic-bezier(0.34, 1.4, 0.64, 1) both; }
+
+  @keyframes growbar {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+  .growbar {
+    transform-origin: bottom;
+    animation: growbar 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* the entry you just wrote, glowing for a moment and then letting go */
+  @keyframes settle {
+    0%   { box-shadow: 0 0 0 0 rgba(47, 93, 80, 0.22); background-color: rgba(228, 237, 233, 0.75); }
+    70%  { box-shadow: 0 0 0 6px rgba(47, 93, 80, 0); background-color: rgba(228, 237, 233, 0.4); }
+    100% { box-shadow: 0 0 0 0 rgba(47, 93, 80, 0); background-color: transparent; }
+  }
+  .settle { animation: settle 2.4s ease-out 400ms both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise, .pop, .tick, .growbar, .settle { animation: none !important; }
+    * { transition-duration: 1ms !important; }
+  }
+}
+
 @media print {
   @page { margin: 16mm; }
   body { background: #fff; }
@@ -36,4 +84,5 @@
   .btn, .btn-primary, .btn-quiet, .btn-ghost { display: none !important; }
   a[href]::after { content: ""; }
   header, section, article { break-inside: avoid; }
+  .rise, .pop, .tick, .growbar, .settle { animation: none !important; }
 }
