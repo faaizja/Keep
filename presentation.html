@@ -63,13 +63,10 @@
   .big-quiet{font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.8rem);letter-spacing:-.02em;line-height:1.25;color:var(--muted)}
   .step{position:absolute;bottom:2rem;right:3vw;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
 
-  .devices{display:flex;align-items:flex-end;justify-content:center;margin-top:1.4rem}
-  .devices img{display:block;height:auto}
-  .devices .laptop{max-height:40vh;width:auto;filter:drop-shadow(0 24px 48px rgba(0,0,0,.35))}
-  .devices .phone{max-height:27vh;width:auto;margin-left:-3.5%;margin-bottom:-1%;
-                  filter:drop-shadow(0 18px 36px rgba(0,0,0,.4))}
-  .shots{display:grid;gap:.9rem}
-  .shot img{width:100%;display:block;border-radius:12px;border:1px solid var(--line);max-height:21vh;object-fit:cover;object-position:top left}
+  .mock{display:block;margin:1.4rem auto 0;width:100%;max-width:1000px;height:auto;
+        max-height:53vh;object-fit:contain;filter:drop-shadow(0 26px 54px rgba(0,0,0,.4))}
+  .shots{display:grid;gap:1.1rem}
+  .shot img{width:100%;display:block;border-radius:14px;border:1px solid var(--line);max-height:33vh;object-fit:cover;object-position:top left;box-shadow:0 12px 30px -18px rgba(31,27,22,.4)}
   .shot span{display:block;margin-top:.4rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 
   .srcgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem 3rem;margin-top:2rem}
@@ -388,7 +385,7 @@
       <div class="col"><h3>United States</h3>
         <p class="req">A school&rsquo;s Title VI duty begins the moment it has notice.</p>
         <p class="miss">But the conduct must be severe, pervasive or persistent. One incident almost never clears that bar.</p></div>
-      <div class="col"><h3>Ontario</h3>
+      <div class="col"><h3>Ontario, Canada</h3>
         <p class="req">Staff must report serious student incidents to the principal.</p>
         <p class="miss">But persistent low level harassment is never judged serious one incident at a time.</p></div>
     </div>
@@ -405,15 +402,12 @@
 <section style="background:var(--keepdeep);color:var(--paper)">
   <div class="wrap centre">
     <p class="eyebrow" style="color:rgba(250,247,242,.55)">So I built the thing that produces one</p>
-    <h1 style="color:var(--paper);font-size:clamp(2.4rem,5.4vw,4.4rem)">Keep</h1>
-    <p class="lede" style="color:rgba(250,247,242,.82);margin:1.2rem auto 0;text-align:center;max-width:44ch">
+    <h1 style="color:var(--paper);font-size:clamp(2.1rem,4.4vw,3.6rem)">Keep</h1>
+    <p class="lede" style="color:rgba(250,247,242,.82);margin:1rem auto 0;text-align:center;max-width:52ch;font-size:clamp(.98rem,1.4vw,1.2rem)">
       A private place for a secondary school student to write down what happens to them, until it adds up to something a school has to act on.
     </p>
-    <div class="devices">
-      <img class="laptop" src="KeepLaptop.png" alt="Keep open on a laptop" />
-      <img class="phone" src="KeepMobile.png" alt="Keep open on a phone" />
-    </div>
-    <p style="margin-top:1.4rem;font-size:clamp(.9rem,1.2vw,1.05rem);color:rgba(250,247,242,.65);line-height:1.7">
+    <img class="mock" src="mobileAndLaptop.png" alt="Keep open on a laptop and a phone" />
+    <p style="margin-top:1rem;font-size:clamp(.82rem,1.05vw,.95rem);color:rgba(250,247,242,.6);line-height:1.7">
       No app. No account. No name, no email, no age. It works on a school library computer.
     </p>
   </div>
@@ -431,11 +425,11 @@
 
 <!-- 10 -->
 <section>
-  <div class="wrap split">
+  <div class="wrap split" style="grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr);gap:clamp(1.6rem,3.5vw,3.2rem)">
     <div>
       <p class="eyebrow">What Keep knows about Amina</p>
       <h2>Nothing at all.</h2>
-      <ul class="plain">
+      <ul class="plain" style="gap:.85rem;margin-top:1.4rem">
         <li><span class="dot"></span><span><b>No personal data is collected.</b> No name, no email, no age, no school.</span></li>
         <li><span class="dot"></span><span><b>Her code is her key.</b> Everything is encrypted in her browser before it goes anywhere, so the database holds text nobody can read.</span></li>
         <li><span class="dot"></span><span><b>Faces are blurred automatically</b> when she adds a screenshot, and she can blur anything else herself before it saves.</span></li>
@@ -480,19 +474,19 @@
 <!-- 12 -->
 <section style="background:var(--keepdeep);color:var(--paper)">
   <div class="wrap centre">
-    <p class="punch" style="color:var(--paper);margin:0 auto;max-width:22ch;font-size:clamp(2rem,4.4vw,3.6rem)">
-      Somewhere to put it.
+    <p style="font-family:var(--display);color:var(--paper);margin:0 auto;max-width:20ch;
+              font-size:clamp(2.1rem,5vw,4rem);line-height:1.14;letter-spacing:-.025em">
+      Kids get told the thing that happened to them was too small to matter.
     </p>
-    <p class="lede" style="color:rgba(250,247,242,.85);margin:2rem auto 0;text-align:center;max-width:42ch">
-      Kids get told the thing that happened to them was too small to matter. It never is.
+    <p style="font-family:var(--display);color:rgba(250,247,242,.9);margin:1.6rem auto 0;max-width:22ch;
+              font-size:clamp(1.5rem,3.4vw,2.6rem);line-height:1.2;letter-spacing:-.02em">
+      It never is. Keep gives them somewhere to put it.
     </p>
-    <p class="lede" style="color:rgba(250,247,242,.85);margin:1.2rem auto 0;text-align:center;max-width:42ch">
-      Keep just gives them somewhere to put it, so that when they are ready to speak, they have got everything.
+    <p style="margin-top:3rem;font-size:clamp(.95rem,1.3vw,1.15rem);color:rgba(250,247,242,.72);line-height:1.7">
+      Try it yourself &mdash;
+      <a href="https://keep-vert.vercel.app" target="_blank" rel="noreferrer"
+         style="color:var(--paper);border-bottom:1px solid rgba(250,247,242,.45);text-decoration:none">keep-vert.vercel.app</a>
     </p>
-    <p style="margin-top:2.6rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,247,242,.5)">
-      keep-vert.vercel.app
-    </p>
-  </div>
   <span class="step" style="color:rgba(250,247,242,.4)">12</span>
 </section>
 
@@ -516,8 +510,8 @@
 <!-- 14 -->
 <section>
   <div class="wrap">
-    <p class="eyebrow">Sources</p>
-    <div class="srcgrid">
+    <h2>Sources</h2>
+    <div class="srcgrid" style="margin-top:2.4rem">
       <div>
         <p>Survey of Muslim students in grades 6 to 12, Massachusetts, 2023 to 2024. Bullying, staff comments and concealment.</p>
         <a href="https://www.campussafetymagazine.com/news/nearly-half-of-muslim-students-in-massachusetts-bullied-for-their-religious-identity/167136">campussafetymagazine.com/news/nearly-half-of-muslim-students-in-massachusetts-bullied-for-their-religious-identity/167136</a>
