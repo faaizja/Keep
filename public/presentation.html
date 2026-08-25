@@ -85,173 +85,176 @@
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
-  <!-- ---------- Amina ---------- -->
+  <!-- Flat vector, black line work, three-quarter view. -->
   <g id="aminaBody">
-    <!-- jumper, with a shaded side and a collar so it reads as clothing -->
-    <path d="M28,340 C28,266 70,228 120,228 C170,228 212,266 212,340 Z" fill="#3A5064"/>
-    <path d="M120,228 C170,228 212,266 212,340 L166,340 C166,278 148,240 120,228 Z" fill="#33475A"/>
-    <path d="M96,236 C104,248 136,248 144,236" fill="none" stroke="#2C3E50" stroke-width="3" stroke-linecap="round" opacity=".55"/>
-    <!-- neck, with the shadow the jaw casts -->
-    <path d="M104,178 L136,178 L136,214 C136,224 128,230 120,230 C112,230 104,224 104,214 Z" fill="#E2AE83"/>
-    <path d="M104,178 L136,178 L136,192 C128,200 112,200 104,192 Z" fill="#D2996E"/>
+    <!-- shoulders first, so the veil can fall over them -->
+    <path d="M22,340 C26,268 70,230 122,230 C174,230 214,268 218,340 Z"
+          fill="#2F3E4E" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M186,268 C194,292 198,316 198,338" fill="none" stroke="#E9EDF0" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>
+    <!-- neck -->
+    <path d="M126,180 L156,180 L156,212 C156,222 148,230 140,230 C130,230 126,222 126,212 Z"
+          fill="#E2AE83" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <!-- the veil, falling behind the head and over the shoulders -->
+    <path d="M146,58 C196,58 216,102 210,152 C206,192 198,232 190,268
+             C176,282 150,288 124,286 C96,284 78,272 70,254
+             C58,216 48,182 48,146 C48,96 96,58 146,58 Z"
+          fill="#4E8A7C" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
     <!-- face -->
-    <ellipse cx="120" cy="134" rx="46" ry="51" fill="#F0C79C"/>
-    <path d="M158,110 C168,132 166,162 150,180 C164,166 170,138 158,110 Z" fill="#E0B187" opacity=".55"/>
-    <!-- hijab, with the face cut out -->
-    <path fill-rule="evenodd" fill="#4E8A7C" stroke="#3E7466" stroke-width="2"
-          d="M120,62 C164,62 189,98 189,138 C189,166 183,192 175,216
-             C169,236 152,248 120,248 C88,248 71,236 65,216
-             C57,192 51,166 51,138 C51,98 76,62 120,62 Z
-             M79,136 a41,47 0 1,0 82,0 a41,47 0 1,0 -82,0 Z"/>
-    <!-- light catching the crown, and folds in the cloth -->
-    <path d="M120,62 C96,62 78,74 68,92 C80,80 98,72 120,72 C142,72 160,80 172,92 C162,74 144,62 120,62 Z"
-          fill="#66A395" opacity=".75"/>
-    <path d="M63,150 C68,178 74,200 82,218" fill="none" stroke="#3E7466" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
-    <path d="M177,150 C172,178 166,200 158,218" fill="none" stroke="#3E7466" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
-    <path d="M100,232 C112,240 128,240 140,232" fill="none" stroke="#3E7466" stroke-width="2.2" stroke-linecap="round" opacity=".5"/>
-    <!-- the drape falling over the shoulders -->
-    <path d="M65,216 C71,236 88,248 120,248 C152,248 169,236 175,216
-             C172,240 152,256 120,256 C88,256 68,240 65,216 Z" fill="#3F7365"/>
-    <!-- soft shadow where the veil meets the face -->
-    <path d="M79,136 a41,47 0 0,1 41,-47 a41,47 0 0,0 -34,54 Z" fill="#D9A97F" opacity=".35"/>
-    <ellipse cx="93" cy="153" rx="11" ry="6.5" fill="#E28C74" opacity=".3"/>
-    <ellipse cx="147" cy="153" rx="11" ry="6.5" fill="#E28C74" opacity=".3"/>
-    <ellipse cx="99" cy="147" rx="4" ry="2.6" fill="#FFF3E4" opacity=".5"/>
-    <ellipse cx="141" cy="147" rx="4" ry="2.6" fill="#FFF3E4" opacity=".5"/>
-    <path d="M117,138 C112,146 115,151 121,151" fill="none" stroke="#D19B6D" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M142,80 C176,80 192,110 190,142 C188,172 172,194 146,196
+             C118,198 100,176 98,144 C96,110 112,80 142,80 Z"
+          fill="#F2C79B" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <!-- the cap beneath the veil -->
+    <path d="M104,118 C110,92 128,80 146,80 C164,80 178,90 186,108
+             C170,96 148,94 130,102 C118,107 109,112 104,118 Z" fill="#241F2B"/>
+    <!-- the veil coming forward over the left of the face -->
+    <path d="M48,146 C48,96 96,58 146,58 C118,66 100,90 96,120
+             C92,152 100,182 122,198 C102,206 82,198 70,182 C58,166 48,158 48,146 Z"
+          fill="#4E8A7C" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <!-- folds -->
+    <path d="M74,104 C88,86 110,74 130,70" fill="none" stroke="#1B1A1F" stroke-width="2.4" stroke-linecap="round" opacity=".6"/>
+    <path d="M62,152 C72,176 88,192 106,200" fill="none" stroke="#1B1A1F" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>
+    <path d="M196,156 C200,196 196,236 188,266" fill="none" stroke="#1B1A1F" stroke-width="2.4" stroke-linecap="round" opacity=".4"/>
+    <path d="M118,240 C142,250 172,246 190,232" fill="none" stroke="#1B1A1F" stroke-width="2.4" stroke-linecap="round" opacity=".4"/>
+    <!-- nose -->
+    <path d="M172,150 C177,157 175,162 168,163" fill="none" stroke="#1B1A1F" stroke-width="2.6" stroke-linecap="round"/>
+    <!-- blush -->
+    <circle cx="128" cy="166" r="9.5" fill="#E4694E" opacity=".5"/>
+    <circle cx="178" cy="166" r="7" fill="#E4694E" opacity=".42"/>
   </g>
 
   <symbol id="amina-calm" viewBox="0 0 240 340">
     <use href="#aminaBody"/>
-    <ellipse cx="101" cy="130" rx="5.4" ry="6" fill="#3D332C"/>
-    <ellipse cx="139" cy="130" rx="5.4" ry="6" fill="#3D332C"/>
-    <circle cx="103.2" cy="128" r="2" fill="#fff" opacity=".95"/>
-    <circle cx="141.2" cy="128" r="2" fill="#fff" opacity=".95"/>
-    <path d="M95,124 C98,121 104,121 107,123" fill="none" stroke="#2E2620" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
-    <path d="M133,123 C136,121 142,121 145,124" fill="none" stroke="#2E2620" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
-    <path d="M91,114 C97,110 107,110 112,114" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M128,114 C133,110 143,110 149,114" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M108,162 C114,168 126,168 132,162" fill="none" stroke="#B87456" stroke-width="3.4" stroke-linecap="round"/>
+    <ellipse cx="140" cy="136" rx="9" ry="10.5" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <ellipse cx="172" cy="134" rx="8" ry="9.5" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <circle cx="143" cy="134" r="5" fill="#241F2B"/>
+    <circle cx="175" cy="132" r="4.6" fill="#241F2B"/>
+    <circle cx="145" cy="131.5" r="1.7" fill="#fff"/>
+    <circle cx="177" cy="129.5" r="1.6" fill="#fff"/>
+    <path d="M128,116 C134,110 146,110 152,115" fill="none" stroke="#241F2B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M164,113 C169,109 178,109 183,114" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M150,166 C156,172 166,171 170,165" fill="none" stroke="#1B1A1F" stroke-width="3" stroke-linecap="round"/>
   </symbol>
 
   <symbol id="amina-happy" viewBox="0 0 240 340">
     <use href="#aminaBody"/>
-    <path d="M93,132 C98,124 108,124 113,132" fill="none" stroke="#3D332C" stroke-width="3.8" stroke-linecap="round"/>
-    <path d="M127,132 C132,124 142,124 147,132" fill="none" stroke="#3D332C" stroke-width="3.8" stroke-linecap="round"/>
-    <path d="M91,112 C97,108 107,108 112,112" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M128,112 C133,108 143,108 149,112" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M104,159 C112,171 128,171 136,159" fill="none" stroke="#B87456" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M110,164 C116,170 124,170 130,164" fill="#C9705A" opacity=".5"/>
+    <path d="M131,138 C136,130 145,130 150,138" fill="none" stroke="#241F2B" stroke-width="4.2" stroke-linecap="round"/>
+    <path d="M164,136 C169,129 177,129 182,136" fill="none" stroke="#241F2B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M128,114 C134,108 146,108 152,113" fill="none" stroke="#241F2B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M164,111 C169,107 178,107 183,112" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M146,164 C154,175 168,173 173,163" fill="none" stroke="#1B1A1F" stroke-width="3.2" stroke-linecap="round"/>
   </symbol>
 
   <symbol id="amina-hurt" viewBox="0 0 240 340">
     <use href="#aminaBody"/>
-    <ellipse cx="101" cy="131" rx="5.4" ry="6.6" fill="#3D332C"/>
-    <ellipse cx="139" cy="131" rx="5.4" ry="6.6" fill="#3D332C"/>
-    <circle cx="103.2" cy="128.5" r="2" fill="#fff" opacity=".95"/>
-    <circle cx="141.2" cy="128.5" r="2" fill="#fff" opacity=".95"/>
-    <path d="M95,124 C98,122 104,122 107,124" fill="none" stroke="#2E2620" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
-    <path d="M133,124 C136,122 142,122 145,124" fill="none" stroke="#2E2620" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
-    <path d="M89,111 C96,106 107,107 113,112" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M127,112 C133,107 144,106 151,111" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M111,165 C115,161 125,161 129,165" fill="none" stroke="#B87456" stroke-width="3.4" stroke-linecap="round"/>
+    <ellipse cx="140" cy="137" rx="9" ry="11" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <ellipse cx="172" cy="135" rx="8" ry="10" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <circle cx="142" cy="136" r="5" fill="#241F2B"/>
+    <circle cx="174" cy="134" r="4.6" fill="#241F2B"/>
+    <circle cx="144" cy="133.5" r="1.7" fill="#fff"/>
+    <circle cx="176" cy="131.5" r="1.6" fill="#fff"/>
+    <path d="M126,112 C133,106 146,108 153,115" fill="none" stroke="#241F2B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M163,114 C169,107 179,106 185,111" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M150,170 C156,165 166,165 171,170" fill="none" stroke="#1B1A1F" stroke-width="3" stroke-linecap="round"/>
   </symbol>
 
   <symbol id="amina-hopeful" viewBox="0 0 240 340">
     <use href="#aminaBody"/>
-    <ellipse cx="101" cy="130" rx="5.4" ry="6" fill="#3D332C"/>
-    <ellipse cx="139" cy="130" rx="5.4" ry="6" fill="#3D332C"/>
-    <circle cx="103.2" cy="128" r="2" fill="#fff" opacity=".95"/>
-    <circle cx="141.2" cy="128" r="2" fill="#fff" opacity=".95"/>
-    <path d="M95,124 C98,121 104,121 107,123" fill="none" stroke="#2E2620" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
-    <path d="M133,123 C136,121 142,121 145,124" fill="none" stroke="#2E2620" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
-    <path d="M90,112 C96,108 107,108 112,113" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M128,113 C133,108 144,108 150,112" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M110,163 C115,167 125,167 130,163" fill="none" stroke="#B87456" stroke-width="3.4" stroke-linecap="round"/>
+    <ellipse cx="140" cy="135" rx="9" ry="10.5" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <ellipse cx="172" cy="133" rx="8" ry="9.5" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <circle cx="143" cy="132" r="5" fill="#241F2B"/>
+    <circle cx="175" cy="130" r="4.6" fill="#241F2B"/>
+    <circle cx="145" cy="129.5" r="1.7" fill="#fff"/>
+    <circle cx="177" cy="127.5" r="1.6" fill="#fff"/>
+    <path d="M128,114 C134,109 146,109 152,114" fill="none" stroke="#241F2B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M164,112 C169,108 178,108 183,113" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M150,167 C156,172 166,171 171,166" fill="none" stroke="#1B1A1F" stroke-width="3" stroke-linecap="round"/>
   </symbol>
 
   <symbol id="amina-closed" viewBox="0 0 240 340">
     <use href="#aminaBody"/>
-    <path d="M94,134 C99,129 108,129 113,134" fill="none" stroke="#3D332C" stroke-width="3.8" stroke-linecap="round"/>
-    <path d="M127,134 C132,129 141,129 146,134" fill="none" stroke="#3D332C" stroke-width="3.8" stroke-linecap="round"/>
-    <path d="M90,116 C96,113 107,114 112,117" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M128,117 C133,114 144,113 150,116" fill="none" stroke="#8A6746" stroke-width="3" stroke-linecap="round"/>
-    <path d="M109,168 C115,163 125,163 131,168" fill="none" stroke="#B87456" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M131,140 C136,134 146,134 151,140" fill="none" stroke="#241F2B" stroke-width="4.2" stroke-linecap="round"/>
+    <path d="M164,138 C169,133 178,133 183,138" fill="none" stroke="#241F2B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M127,118 C134,113 146,114 152,118" fill="none" stroke="#241F2B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M164,117 C169,113 179,113 184,117" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M149,172 C156,166 167,166 172,172" fill="none" stroke="#1B1A1F" stroke-width="3" stroke-linecap="round"/>
   </symbol>
 
-  <!-- ---------- classmates ---------- -->
+  <!-- ---------- classmates, same treatment ---------- -->
   <g id="kidBase">
-    <path d="M24,340 C24,268 68,210 120,210 C172,210 216,268 216,340 Z" fill="#8FA0AD"/>
-    <path d="M120,210 C172,210 216,268 216,340 L168,340 C168,278 150,226 120,210 Z" fill="#8394A2"/>
-    <path d="M106,182 L134,182 L134,204 C134,212 127,218 120,218 C113,218 106,212 106,204 Z" fill="#DDA87F"/>
-    <path d="M106,182 L134,182 L134,192 C128,198 112,198 106,192 Z" fill="#C8925F"/>
-    <ellipse cx="76" cy="146" rx="8.5" ry="11.5" fill="#E8B48E"/>
-    <ellipse cx="164" cy="146" rx="8.5" ry="11.5" fill="#E8B48E"/>
-    <path d="M74,143 C78,146 78,152 75,155" fill="none" stroke="#CE9A72" stroke-width="1.8" stroke-linecap="round"/>
-    <path d="M166,143 C162,146 162,152 165,155" fill="none" stroke="#CE9A72" stroke-width="1.8" stroke-linecap="round"/>
-    <ellipse cx="120" cy="142" rx="45" ry="49" fill="#E8B48E"/>
-    <path d="M156,118 C166,140 164,168 149,186 C162,172 168,144 156,118 Z" fill="#D69F76" opacity=".55"/>
+    <path d="M22,340 C26,270 70,232 120,232 C170,232 214,270 218,340 Z"
+          fill="#8FA0AD" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M104,238 C112,252 128,252 136,238" fill="none" stroke="#1B1A1F" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M106,186 L134,186 L134,214 C134,224 128,232 120,232 C112,232 106,224 106,214 Z"
+          fill="#DDA87F" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M74,140 C74,104 96,80 120,80 C144,80 166,104 166,140 C166,176 146,196 120,196
+             C94,196 74,176 74,140 Z" fill="#E8B48E" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M70,140 C64,140 62,150 66,156 C69,160 74,160 76,158" fill="#E8B48E" stroke="#1B1A1F" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M170,140 C176,140 178,150 174,156 C171,160 166,160 164,158" fill="#E8B48E" stroke="#1B1A1F" stroke-width="2.6" stroke-linejoin="round"/>
+    <circle cx="96" cy="162" r="8" fill="#E4694E" opacity=".45"/>
+    <circle cx="144" cy="162" r="8" fill="#E4694E" opacity=".45"/>
+    <path d="M118,146 C114,153 117,158 122,157" fill="none" stroke="#1B1A1F" stroke-width="2.6" stroke-linecap="round"/>
   </g>
 
   <symbol id="kid-a" viewBox="0 0 240 340">
     <use href="#kidBase"/>
-    <path d="M76,140 C76,102 100,88 120,88 C140,88 164,102 164,140 C156,118 142,110 120,110 C98,110 84,118 76,140 Z" fill="#3E3630"/>
-    <path d="M92,104 C100,96 112,93 122,94" fill="none" stroke="#544A42" stroke-width="2.6" stroke-linecap="round"/>
-    <path d="M104,98 C114,93 128,94 138,100" fill="none" stroke="#544A42" stroke-width="2.6" stroke-linecap="round"/>
-    <ellipse cx="103" cy="142" rx="5.2" ry="5.6" fill="#3D332C"/>
-    <ellipse cx="137" cy="142" rx="5.2" ry="5.6" fill="#3D332C"/>
-    <circle cx="105" cy="140" r="1.9" fill="#fff" opacity=".9"/>
-    <circle cx="139" cy="140" r="1.9" fill="#fff" opacity=".9"/>
-    <path d="M92,124 C98,120 108,121 113,124" fill="none" stroke="#4A3E33" stroke-width="2.8" stroke-linecap="round"/>
-    <path d="M127,124 C132,121 142,120 148,124" fill="none" stroke="#4A3E33" stroke-width="2.8" stroke-linecap="round"/>
-    <path d="M117,150 C114,156 116,160 120,160" fill="none" stroke="#CE9A72" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M104,166 C113,175 130,174 138,164" fill="none" stroke="#A96F4E" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M74,136 C74,98 96,76 120,76 C144,76 166,98 166,136
+             C158,116 142,106 120,106 C98,106 82,116 74,136 Z"
+          fill="#241F2B" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="102" cy="140" rx="8.5" ry="10" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <ellipse cx="138" cy="140" rx="8.5" ry="10" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <circle cx="103" cy="140" r="4.8" fill="#241F2B"/>
+    <circle cx="139" cy="140" r="4.8" fill="#241F2B"/>
+    <circle cx="105" cy="137.5" r="1.6" fill="#fff"/>
+    <circle cx="141" cy="137.5" r="1.6" fill="#fff"/>
+    <path d="M90,120 C96,115 108,115 113,120" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M127,120 C132,115 144,115 150,120" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M102,170 C112,180 130,179 138,168" fill="none" stroke="#1B1A1F" stroke-width="3.2" stroke-linecap="round"/>
   </symbol>
 
   <symbol id="kid-b" viewBox="0 0 240 340">
     <use href="#kidBase"/>
-    <path d="M77,136 C81,100 102,90 120,90 C139,90 161,100 163,138 C150,116 133,110 118,112 C104,114 87,120 77,136 Z" fill="#4A3F36"/>
-    <path d="M96,102 C106,95 120,93 132,97" fill="none" stroke="#5E5148" stroke-width="2.6" stroke-linecap="round"/>
-    <ellipse cx="103" cy="142" rx="5.2" ry="5.6" fill="#3D332C"/>
-    <ellipse cx="137" cy="142" rx="5.2" ry="5.6" fill="#3D332C"/>
-    <circle cx="105" cy="140" r="1.9" fill="#fff" opacity=".9"/>
-    <circle cx="139" cy="140" r="1.9" fill="#fff" opacity=".9"/>
-    <path d="M92,124 C98,121 108,120 113,124" fill="none" stroke="#4A3E33" stroke-width="2.8" stroke-linecap="round"/>
-    <path d="M127,124 C132,120 142,121 148,124" fill="none" stroke="#4A3E33" stroke-width="2.8" stroke-linecap="round"/>
-    <path d="M117,150 C114,156 116,160 120,160" fill="none" stroke="#C08F63" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M106,165 C114,173 129,172 137,165" fill="none" stroke="#9E6C48" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M75,132 C79,96 100,76 120,76 C142,76 164,96 165,134
+             C152,112 134,104 118,106 C102,108 85,116 75,132 Z"
+          fill="#3B3129" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="102" cy="140" rx="8.5" ry="10" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <ellipse cx="138" cy="140" rx="8.5" ry="10" fill="#fff" stroke="#1B1A1F" stroke-width="2.4"/>
+    <circle cx="104" cy="141" r="4.8" fill="#241F2B"/>
+    <circle cx="140" cy="141" r="4.8" fill="#241F2B"/>
+    <circle cx="106" cy="138.5" r="1.6" fill="#fff"/>
+    <circle cx="142" cy="138.5" r="1.6" fill="#fff"/>
+    <path d="M90,121 C96,117 108,116 113,120" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M127,120 C132,116 144,117 150,121" fill="none" stroke="#241F2B" stroke-width="4.6" stroke-linecap="round"/>
+    <path d="M104,169 C113,178 130,177 137,169" fill="none" stroke="#1B1A1F" stroke-width="3.2" stroke-linecap="round"/>
   </symbol>
 
   <!-- ---------- head of year ---------- -->
   <symbol id="adult" viewBox="0 0 240 340">
-    <path d="M16,340 C16,262 64,204 120,204 C176,204 224,262 224,340 Z" fill="#4C5A66"/>
-    <path d="M120,204 C176,204 224,262 224,340 L172,340 C172,272 152,222 120,204 Z" fill="#44515C"/>
-    <path d="M107,176 L133,176 L133,196 C133,204 127,210 120,210 C113,210 107,204 107,196 Z" fill="#D9AC80"/>
-    <path d="M107,176 L133,176 L133,186 C127,192 113,192 107,186 Z" fill="#C4955F"/>
-    <path d="M100,204 L120,242 L140,204 L131,199 L109,199 Z" fill="#EDF1F4"/>
-    <path d="M100,204 L120,242 L112,204 Z" fill="#DCE3E9"/>
-    <path d="M115,212 L125,212 L130,258 L120,268 L110,258 Z" fill="#7A4B3A"/>
-    <path d="M120,212 L125,212 L130,258 L120,268 Z" fill="#6B4133"/>
-    <ellipse cx="77" cy="140" rx="8.5" ry="11.5" fill="#E5B98F"/>
-    <ellipse cx="163" cy="140" rx="8.5" ry="11.5" fill="#E5B98F"/>
-    <path d="M75,137 C79,140 79,146 76,149" fill="none" stroke="#CB9E74" stroke-width="1.8" stroke-linecap="round"/>
-    <path d="M165,137 C161,140 161,146 164,149" fill="none" stroke="#CB9E74" stroke-width="1.8" stroke-linecap="round"/>
-    <ellipse cx="120" cy="136" rx="44" ry="48" fill="#E5B98F"/>
-    <path d="M155,113 C165,134 163,161 148,178 C161,164 167,138 155,113 Z" fill="#D3A478" opacity=".55"/>
-    <path d="M78,130 C78,96 102,82 120,82 C138,82 162,96 162,130 C154,112 140,104 120,104 C100,104 86,112 78,130 Z" fill="#5F554C"/>
-    <path d="M84,112 C94,100 110,94 124,95" fill="none" stroke="#756A5E" stroke-width="2.6" stroke-linecap="round"/>
-    <path d="M78,124 C80,112 86,104 94,99" fill="none" stroke="#756A5E" stroke-width="2.4" stroke-linecap="round"/>
-    <circle cx="102" cy="138" r="13.5" fill="#fff" opacity=".42"/>
-    <circle cx="138" cy="138" r="13.5" fill="#fff" opacity=".42"/>
-    <circle cx="102" cy="138" r="13.5" fill="none" stroke="#4A423B" stroke-width="2.6"/>
-    <circle cx="138" cy="138" r="13.5" fill="none" stroke="#4A423B" stroke-width="2.6"/>
-    <path d="M115.5,138 L124.5,138" stroke="#4A423B" stroke-width="2.6"/>
-    <path d="M88.5,138 L78,133" stroke="#4A423B" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M151.5,138 L162,133" stroke="#4A423B" stroke-width="2.2" stroke-linecap="round"/>
-    <ellipse cx="102" cy="138" rx="4.2" ry="4.8" fill="#3D332C"/>
-    <ellipse cx="138" cy="138" rx="4.2" ry="4.8" fill="#3D332C"/>
-    <path d="M117,148 C114,154 116,158 120,158" fill="none" stroke="#CB9E74" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M106,168 C114,173 127,173 134,167" fill="none" stroke="#A87455" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M14,340 C18,262 64,222 120,222 C176,222 222,262 226,340 Z"
+          fill="#3F4C59" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M106,180 L134,180 L134,206 C134,216 128,224 120,224 C112,224 106,216 106,206 Z"
+          fill="#D9AC80" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M98,224 L120,266 L142,224 L132,218 L108,218 Z" fill="#EDF1F4" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M113,232 L127,232 L132,282 L120,294 L108,282 Z" fill="#C2603C" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M76,134 C76,98 96,74 120,74 C144,74 164,98 164,134 C164,170 144,190 120,190
+             C96,190 76,170 76,134 Z" fill="#E5B98F" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M72,134 C66,134 64,144 68,150 C71,154 76,154 78,152" fill="#E5B98F" stroke="#1B1A1F" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M168,134 C174,134 176,144 172,150 C169,154 164,154 162,152" fill="#E5B98F" stroke="#1B1A1F" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M76,128 C76,92 96,70 120,70 C144,70 164,92 164,128
+             C156,110 142,100 120,100 C98,100 84,110 76,128 Z"
+          fill="#4A4038" stroke="#1B1A1F" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="100" cy="136" r="15" fill="#fff" opacity=".55"/>
+    <circle cx="140" cy="136" r="15" fill="#fff" opacity=".55"/>
+    <circle cx="100" cy="136" r="15" fill="none" stroke="#1B1A1F" stroke-width="3"/>
+    <circle cx="140" cy="136" r="15" fill="none" stroke="#1B1A1F" stroke-width="3"/>
+    <path d="M115,136 L125,136" stroke="#1B1A1F" stroke-width="3"/>
+    <path d="M85,134 L74,129" stroke="#1B1A1F" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M155,134 L166,129" stroke="#1B1A1F" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="101" cy="136" r="4.6" fill="#241F2B"/>
+    <circle cx="141" cy="136" r="4.6" fill="#241F2B"/>
+    <path d="M88,112 C94,107 106,106 112,110" fill="none" stroke="#241F2B" stroke-width="4.4" stroke-linecap="round"/>
+    <path d="M128,110 C134,106 146,107 152,112" fill="none" stroke="#241F2B" stroke-width="4.4" stroke-linecap="round"/>
+    <path d="M118,152 C114,159 117,164 122,163" fill="none" stroke="#1B1A1F" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M104,172 C113,180 129,180 136,171" fill="none" stroke="#1B1A1F" stroke-width="3.2" stroke-linecap="round"/>
   </symbol>
 </defs>
 </svg>
@@ -385,7 +388,7 @@
       <div class="col"><h3>United States</h3>
         <p class="req">A school&rsquo;s Title VI duty begins the moment it has notice.</p>
         <p class="miss">But the conduct must be severe, pervasive or persistent. One incident almost never clears that bar.</p></div>
-      <div class="col"><h3>Ontario, Canada</h3>
+      <div class="col"><h3>Ontario</h3>
         <p class="req">Staff must report serious student incidents to the principal.</p>
         <p class="miss">But persistent low level harassment is never judged serious one incident at a time.</p></div>
     </div>
